@@ -1,0 +1,8 @@
+<div fxLayout="row wrap" fxLayoutAlign="space-between center">
+    <mat-card *ngFor="let image of bookmarked">
+        <img mat-card-image [src]="'https://live.staticflickr.com/' + image.server + '/' + image.id + '_' + image.secret + '.jpg'" alt="">
+        <mat-card-actions>
+            <button mat-flat-button>Remove it</button>
+        </mat-card-actions>
+    </mat-card>
+</div>

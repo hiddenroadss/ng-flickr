@@ -1,0 +1,13 @@
+<div fxLayout="row wrap" fxLayoutGap="15px" fxLayoutAlign="space-between center">
+    <mat-card *ngFor="let image of images">
+        <img mat-card-image [src]="'https://live.staticflickr.com/' + image.server + '/' + image.id + '_' + image.secret + '.jpg'">
+        <mat-card-actions>
+            <button mat-button (click)="onBookmarkClick(image)">Bookmark it!</button>
+        </mat-card-actions>
+        <mat-card-content>
+            <p>Tags:</p>
+        </mat-card-content>
+    </mat-card>
+</div>
+
+<app-paginator></app-paginator>

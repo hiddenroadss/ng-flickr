@@ -13,6 +13,7 @@ import { Photo } from '../search.service';
 export class ImageListComponent implements OnInit {
   images: Photo[];
   pages: number;
+  showImg = false;
 
   constructor(private searchService: SearchService, private storageService: StorageService) { 
     this.searchService.pagesOutput.subscribe(images => {
@@ -35,4 +36,12 @@ export class ImageListComponent implements OnInit {
     this.storageService.setImages('bookmarks', image);
   }
 
+  setGridRowEnd(height: number) {
+    const spans = Math.ceil(height / 10);
+    return {
+      'grid-row-end': `span ${spans}`
+    }
+  }
+
+  
 }

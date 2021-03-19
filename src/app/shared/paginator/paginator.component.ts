@@ -1,5 +1,12 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
+interface PageEvent {
+  length: number;
+  pageIndex: number;
+  pageSize: number;
+  previousPageIndex: number
+}
+
 @Component({
   selector: 'app-paginator',
   templateUrl: './paginator.component.html',
@@ -8,7 +15,6 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class PaginatorComponent implements OnInit {
   @Input() numberOfPages: number;
   @Output() currPage = new EventEmitter<number>();
-  pageOptions: number[];
 
   currentPage = 1;
 
@@ -18,20 +24,13 @@ export class PaginatorComponent implements OnInit {
   }
 
   ngOnChanges() {
-    this.pageOptions = [
-      this.currentPage - 2,
-      this.currentPage - 1,
-      this.currentPage,
-      this.currentPage + 1,
-      this.currentPage + 2
-    ].filter(pageNumber => pageNumber >= 1 && pageNumber <= this.numberOfPages)
-    console.log(this.numberOfPages);
-    
+    console.log(this.numberOfPages); 
   }
 
-  onPageClick(page: number) {
-    this.currPage.emit(page);
-    this.currentPage = page;
+  onPageClick(page: PageEvent) {
+    this.currPage.emit(page.pageIndex);
+    this.currentPage = page.pageIndex;
+    
   }
 
 }

@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 
+import { Photo } from '../search/search.service';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -47,12 +49,21 @@ export class StorageService {
         
         this.localStorage.setItem(key, JSON.stringify([...bookmarks, value]));
       } else {
-        console.log(JSON.stringify([value]));
-        
         this.localStorage.setItem(key, JSON.stringify([value]));
+      }  
+      return true;
+    }
+    return false;
+  }
+
+  removeImages(key: string, value: Photo) {
+    if (this.isLocalStorageSupported) {
+      const bookmarks: Photo[] = JSON.parse(this.localStorage.getItem(key));
+      if (bookmarks) {
+        const updatedBookmarks = bookmarks.filter(bookmark => JSON.stringify(bookmark) !== JSON.stringify(value));
+        
+        this.localStorage.setItem(key, JSON.stringify(updatedBookmarks));
       }
-      console.log(this.localStorage);
-      
       return true;
     }
     return false;

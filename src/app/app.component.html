@@ -1,14 +1,29 @@
-<mat-toolbar color="primary" fxLayout fxLayoutAlign="space-around center">
+<mat-toolbar color="primary" fxLayout fxLayoutAlign="space-between center">
     <div fxFlex.lt-sm fxHide.gt-sm>
         <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon" >
             <mat-icon>menu</mat-icon>
         </button>
     </div>
-    <a routerLink="">Search</a>
-    <a routerLink="bookmarks">Bookmarks</a>
-    <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-      <mat-icon>favorite</mat-icon>
-    </button>
+    <div class="nav-list">
+        <a routerLink="">Search</a>
+        <a routerLink="bookmarks" [ngClass]="(authService.user$ | async) ? '' : 'hidden'">Bookmarks</a>
+    </div>
+    <div class="auth" fxLayout class="account">
+        <div *ngIf="authService.user$ | async as user; else login">
+            <button mat-icon-button (click)="authService.signOut()">
+                <mat-icon>logout</mat-icon>
+            </button>
+        </div>
+        <ng-template #login>
+            <button  mat-icon-button  aria-label="Example icon-button with heart icon" (click)="authService.googleSignin()">
+                <mat-icon>login</mat-icon>
+              </button>
+        </ng-template>
+
+    </div>
 </mat-toolbar>
-<router-outlet></router-outlet>
+
+<div class="container">
+    <router-outlet></router-outlet>
+</div>
    

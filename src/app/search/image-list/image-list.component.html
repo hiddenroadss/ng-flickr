@@ -1,13 +1,24 @@
-<div fxLayout="row wrap" fxLayoutGap="15px" fxLayoutAlign="space-between center">
-    <mat-card *ngFor="let image of images">
-        <img mat-card-image [src]="'https://live.staticflickr.com/' + image.server + '/' + image.id + '_' + image.secret + '.jpg'">
-        <mat-card-actions>
-            <button mat-button (click)="onBookmarkClick(image)">Bookmark it!</button>
-        </mat-card-actions>
-        <mat-card-content>
-            <p>Tags:</p>
-        </mat-card-content>
-    </mat-card>
+<div class="images-container" *ngIf="images; else void">
+    <div *ngFor="let image of images" class="images-card" 
+        [ngStyle]="setGridRowEnd(img.clientHeight)"
+        (mouseover)="info.nextSibling.classList.add('show'); img.classList.add('blur')" 
+        (mouseout)="info.nextSibling.classList.remove('show'); img.classList.remove('blur')"
+        >
+        <img 
+            [src]="'https://live.staticflickr.com/' + image.server + '/' + image.id + '_' + image.secret + '.jpg'"
+            (load)="0"
+            #img
+        >
+        <ng-container #info>
+            <div class="image-description">
+                <button mat-button color="accent" (click)="onBookmarkClick(image)" class="btn">Bookmark</button>
+            </div>
+        </ng-container>
+    </div> 
 </div>
 
-<app-paginator></app-paginator>
+<ng-template #void>
+    <span style="color: #333; display: block; text-align: center;">No images here. Would you try to search for anything else?</span>
+</ng-template>
+
+<app-paginator fxLayoutAlign="center baseline" [numberOfPages]="pages" (currPage)="onPageClick($event)"></app-paginator>

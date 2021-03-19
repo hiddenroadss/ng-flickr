@@ -5,6 +5,7 @@ import { BookmarksRoutingModule } from './bookmarks-routing.module';
 import { BookmarksHomeComponent } from './bookmarks-home/bookmarks-home.component';
 import { BookmarksListComponent } from './bookmarks-list/bookmarks-list.component';
 import { MaterialModule } from '../material/material.module';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -12,7 +13,8 @@ import { MaterialModule } from '../material/material.module';
   imports: [
     CommonModule,
     BookmarksRoutingModule,
-    MaterialModule
+    MaterialModule,
+    SharedModule
   ]
 })
 export class BookmarksModule { }

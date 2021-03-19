@@ -1,8 +1,18 @@
-<div fxLayout="row wrap" fxLayoutAlign="space-between center">
-    <mat-card *ngFor="let image of bookmarked">
-        <img mat-card-image [src]="'https://live.staticflickr.com/' + image.server + '/' + image.id + '_' + image.secret + '.jpg'" alt="">
-        <mat-card-actions>
-            <button mat-flat-button>Remove it</button>
-        </mat-card-actions>
-    </mat-card>
+<div class="images-container">
+    <div *ngFor="let image of bookmarked$ | async" class="images-card" 
+            [ngStyle]="setGridRowEnd(img.clientHeight)" 
+            (mouseover)="info.nextSibling.classList.add('show'); img.classList.add('blur')" 
+            (mouseout)="info.nextSibling.classList.remove('show'); img.classList.remove('blur')"
+            >
+        <img 
+            [src]="'https://live.staticflickr.com/' + image.server + '/' + image.id + '_' + image.secret + '.jpg'"
+            (load)="0"
+            #img
+            >
+        <ng-container #info>
+            <div class="image-description">
+                <button mat-button color="accent" (click)="onBookmarkRemove(image)" class="btn">Remove</button>
+            </div>
+        </ng-container>
+    </div> 
 </div>

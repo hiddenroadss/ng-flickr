@@ -30,10 +30,5 @@ export class BookmarksListComponent implements OnInit {
     }
   }
 
-  show(bla: any) {
-    console.log(bla);
-    
-  }
-
 
 }

@@ -13,19 +13,17 @@ import { Photo } from '../search.service';
 export class ImageListComponent implements OnInit {
   images: Photo[];
   pages: number;
-  showImg = false;
 
   constructor(private searchService: SearchService, private storageService: StorageService) { 
+    
+  }
+
+  ngOnInit(): void { 
     this.searchService.pagesOutput.subscribe(images => {
       this.images = images;
       this.pages = this.searchService.numberOfPages;
       
     })
-  }
-
-  ngOnInit(): void {
-    // console.log(this.storageService.localStorage);
-    
   }
 
   onPageClick(page: number) {
